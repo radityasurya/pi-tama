@@ -7,8 +7,8 @@ A compact, centered startup screen for the [Pi coding agent](https://pi.dev). It
 - Responsive stacked and wide terminal layouts
 - Pi version displayed beside a compact banner
 - Loaded resources grouped into readable sections
-- Multi-column skill and local-extension lists when space permits
-- Installed package extensions listed separately
+- Extensions split into Pi-local, installed-package, and linked source-path groups
+- Full linked source paths shown instead of ambiguous labels such as `src`
 - Unknown startup diagnostics preserved through a fail-safe fallback
 
 ## Install
@@ -45,7 +45,7 @@ The package contains readable TypeScript and has:
 - no network, subprocess, clipboard, prompt, tool, model, or telemetry access;
 - no background work after the startup resource snapshot completes.
 
-At startup it reads only the names of entries in Pi's local extension directory so local and packaged extensions can be grouped. Resource capture uses at most three short 50 ms retries and is then disposed or replaced by Pi's native panel.
+At startup it reads only the names of entries in Pi's local extension directory and the text already rendered in Pi's startup-resource panel so extensions can be grouped by provenance. Resource capture uses at most three short 50 ms retries and is then disposed or replaced by Pi's native panel.
 
 ## Development
 

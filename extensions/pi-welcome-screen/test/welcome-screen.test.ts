@@ -59,6 +59,10 @@ function sectionRows(
   return lines.slice(start + 1, end).filter((line) => line.trim());
 }
 
+function bulletRows(lines: string[]): string[] {
+  return lines.filter((line) => line.includes("•"));
+}
+
 const originalOffline = process.env.PI_OFFLINE;
 
 beforeEach(() => {
@@ -98,24 +102,27 @@ describe("welcome resource formatting", () => {
       prompts: ["/implement", "/review"],
       extensions: [
         "custom-footer",
+        "subagent/index.ts",
         "pi-web-access",
-        "subagent",
         "@scope/package",
       ],
-      vendoredExtensions: ["pi-web-access", "@scope/package"],
+      packageExtensions: ["pi-web-access", "@scope/package"],
+      sourceExtensions: [],
     });
   });
 
-  test("normalizes local and package extension labels", () => {
+  test("normalizes local and package extension labels without hiding index paths", () => {
     expect(normalizeExtensionName("custom-footer.ts")).toBe("custom-footer");
-    expect(normalizeExtensionName("subagent/index.ts")).toBe("subagent");
+    expect(normalizeExtensionName("subagent/index.ts")).toBe(
+      "subagent/index.ts",
+    );
     expect(
       normalizeExtensionName(
         "C:\\Users\\kg\\.pi\\agent\\extensions\\welcome-screen.ts",
       ),
     ).toBe("welcome-screen");
     expect(normalizeExtensionName("/tmp/pi-welcome-screen/src/index.ts")).toBe(
-      "pi-welcome-screen",
+      "/tmp/pi-welcome-screen/src/index.ts",
     );
     expect(normalizeExtensionName("@ff-labs/pi-fff:src/index.ts")).toBe(
       "@ff-labs/pi-fff",
@@ -123,6 +130,41 @@ describe("welcome resource formatting", () => {
     expect(
       normalizeExtensionName("pi-web-access:extensions/web-search.ts"),
     ).toBe("pi-web-access");
+  });
+
+  test("uses expanded provenance to separate local, package, and source extensions", () => {
+    const sourcePath = "~/dev/pi-kaush/extensions/pi-double-paste/src";
+    const resources = parseWelcomeResources(
+      `[Extensions]\n  mitsupi, src, @ff-labs/pi-fff`,
+      new Set(["mitsupi"]),
+      [
+        "[Extensions]",
+        "  user",
+        "    ~/.pi/agent/extensions/mitsupi",
+        "    npm:@ff-labs/pi-fff",
+        "      src",
+        `    ${sourcePath}`,
+      ].join("\n"),
+    );
+
+    expect(resources.extensions).toEqual([
+      "mitsupi",
+      "@ff-labs/pi-fff",
+      sourcePath,
+    ]);
+    expect(resources.packageExtensions).toEqual(["@ff-labs/pi-fff"]);
+    expect(resources.sourceExtensions).toEqual([sourcePath]);
+
+    const rendered = renderCenteredWelcome(
+      resources,
+      plainTheme as never,
+      100,
+    ).join("\n");
+    expect(rendered).toContain("Local");
+    expect(rendered).toContain("Packages");
+    expect(rendered).toContain("Source paths");
+    expect(rendered).toContain(sourcePath);
+    expect(rendered).not.toMatch(/• src\s*$/m);
   });
 
   test("keeps context files in load order and renders one item per row", () => {
@@ -169,7 +211,9 @@ describe("welcome resource formatting", () => {
 
     const wide = renderCenteredWelcome(resources, plainTheme as never, 100);
     const skillRows = sectionRows(wide, "Skills", "Prompts");
-    const extensionRows = sectionRows(wide, "Extensions", "missing");
+    const extensionRows = bulletRows(
+      sectionRows(wide, "Extensions", "missing"),
+    );
     expect(skillRows).toHaveLength(7);
     expect(extensionRows).toHaveLength(7);
     expect(skillRows.every((row) => (row.match(/•/g)?.length ?? 0) <= 2)).toBe(
@@ -300,10 +344,14 @@ describe("welcome resource formatting", () => {
     const firstPackageLine = wide.findIndex((row) =>
       resources.vendoredExtensions.some((name) => row.includes(name)),
     );
-    const localExtensionRows = extensionRows.slice(0, firstPackageRow);
-    const packageExtensionRows = extensionRows.slice(firstPackageRow);
+    const localExtensionRows = bulletRows(
+      extensionRows.slice(0, firstPackageRow),
+    );
+    const packageExtensionRows = bulletRows(
+      extensionRows.slice(firstPackageRow),
+    );
     expect(firstPackageRow).toBeGreaterThan(0);
-    expect(wide[firstPackageLine - 1]).toBe("");
+    expect(wide[firstPackageLine - 1]).toContain("Packages");
     expect(skillRows.length).toBeLessThanOrEqual(6);
     expect(localExtensionRows).toHaveLength(4);
     expect(
@@ -461,6 +509,14 @@ describe("welcome resource-panel bridge", () => {
           "  src",
         ].join("\n");
       },
+      getExpandedText() {
+        return [
+          "[Extensions]",
+          "  user",
+          "    ~/dev/pi-kaush/extensions/pi-double-paste/src",
+          "    ~/dev/pi-kaush/extensions/pi-welcome-screen/src",
+        ].join("\n");
+      },
     };
     const themeComponent = {
       ...emptyComponent(),
@@ -500,6 +556,10 @@ describe("welcome resource-panel bridge", () => {
     await new Promise((resolve) => setTimeout(resolve, 80));
     const firstRender = header?.render(80);
     expect(firstRender?.join("\n")).toContain("• AGENTS.md");
+    expect(firstRender?.join("\n")).toContain(
+      "~/dev/pi-kaush/extensions/pi-double-paste/src",
+    );
+    expect(firstRender?.join("\n")).not.toMatch(/• src\s*$/m);
     expect(tui.children).not.toContain(panel);
     expect(header?.render(80)).toBe(firstRender);
     const readsAfterCapture = resourceReads;

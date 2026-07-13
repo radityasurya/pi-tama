@@ -49,12 +49,17 @@ export interface WelcomeResources {
   skills: string[];
   prompts: string[];
   extensions: string[];
-  /** Extensions not sourced from the user's Pi extensions directory. */
+  /** Extensions loaded from npm or git packages. */
+  packageExtensions?: string[];
+  /** Local extension entry points outside Pi's extension directories. */
+  sourceExtensions?: string[];
+  /** @deprecated Use packageExtensions. */
   vendoredExtensions?: string[];
 }
 
 interface CollapsedTextComponent extends Component {
   getCollapsedText?: () => string;
+  getExpandedText?: () => string;
 }
 
 interface ResourcePanel extends Component {
@@ -68,6 +73,7 @@ interface ResourceBridge {
 
 interface ResourcePanelSnapshot {
   resourceText: string;
+  expandedExtensionsText?: string;
   requiresNativePanel: boolean;
 }
 
@@ -94,6 +100,7 @@ function getSectionHeading(text: string): string | undefined {
 
 function inspectResourcePanel(panel: ResourcePanel): ResourcePanelSnapshot {
   const sections: string[] = [];
+  let expandedExtensionsText: string | undefined;
 
   for (const child of panel.children) {
     const collapsible = child as CollapsedTextComponent;
@@ -102,6 +109,13 @@ function inspectResourcePanel(panel: ResourcePanel): ResourcePanelSnapshot {
       const heading = getSectionHeading(text);
       if (WELCOME_SECTIONS.some((section) => section === heading)) {
         sections.push(text);
+        if (
+          (heading === "Extensions" ||
+            /(?:^|\n)\s*\[Extensions\]\s*(?:\n|$)/.test(stripAnsi(text))) &&
+          typeof collapsible.getExpandedText === "function"
+        ) {
+          expandedExtensionsText = collapsible.getExpandedText();
+        }
       } else if (heading !== "Themes") {
         // Unknown native sections may contain actionable information. Keep
         // Pi's panel intact rather than guessing how to reproduce them.
@@ -118,7 +132,11 @@ function inspectResourcePanel(panel: ResourcePanel): ResourcePanelSnapshot {
     }
   }
 
-  return { resourceText: sections.join("\n"), requiresNativePanel: false };
+  return {
+    resourceText: sections.join("\n"),
+    ...(expandedExtensionsText ? { expandedExtensionsText } : {}),
+    requiresNativePanel: false,
+  };
 }
 
 function splitList(body: string[]): string[] {
@@ -139,24 +157,22 @@ export function normalizeExtensionName(label: string): string {
 
   name = name.replace(/\/$/, "");
   if (!isPackageLabel && !name.startsWith("@")) {
+    if (/\/(?:index)\.(?:[cm]?[jt]s)$/.test(name)) return name;
     const segments = name.split("/").filter(Boolean);
     const fileName = segments.pop() ?? name;
-    if (/^(?:index)\.(?:[cm]?[jt]s)$/.test(fileName)) {
-      const parent = segments.pop() ?? "index";
-      name = parent === "src" ? (segments.pop() ?? parent) : parent;
-    } else {
-      name = fileName;
-    }
+    name = fileName;
   }
   return name.replace(/\.(?:[cm]?[jt]s)$/, "");
 }
 
 function isWelcomeScreenExtension(name: string): boolean {
+  const normalized = name.replace(/\\/g, "/");
   return (
     name === "welcome-screen" ||
     name === "pi-welcome-screen" ||
     name === "@pi-kaush/pi-welcome-screen" ||
-    name === "src"
+    name === "src" ||
+    /\/(?:pi-)?welcome-screen(?:\/|$)/.test(normalized)
   );
 }
 
@@ -170,6 +186,110 @@ export function sortExtensionNames(names: string[]): string[] {
 
 function unique(items: string[]): string[] {
   return [...new Set(items.filter(Boolean))];
+}
+
+interface ExtensionGroups {
+  localExtensions: string[];
+  packageExtensions: string[];
+  sourceExtensions: string[];
+}
+
+function isPackageSource(label: string): boolean {
+  return label.startsWith("npm:") || label.startsWith("git:");
+}
+
+function normalizePackageSource(label: string): string {
+  return label.replace(/^(?:npm|git):/, "");
+}
+
+function isExplicitSourcePath(label: string): boolean {
+  const normalized = label.replace(/\\/g, "/");
+  return (
+    normalized.startsWith("/") ||
+    normalized.startsWith("~/") ||
+    normalized.startsWith("./") ||
+    normalized.startsWith("../") ||
+    /^[A-Za-z]:\//.test(normalized) ||
+    /\/(?:index)\.(?:[cm]?[jt]s)$/.test(normalized)
+  );
+}
+
+function parseExpandedExtensionGroups(
+  text: string | undefined,
+  localExtensionNames: Set<string>,
+): ExtensionGroups | undefined {
+  if (!text || getSectionHeading(text) !== "Extensions") return undefined;
+
+  const localExtensions: string[] = [];
+  const packageExtensions: string[] = [];
+  const sourceExtensions: string[] = [];
+  let foundItem = false;
+
+  for (const rawLine of text.split("\n").slice(1)) {
+    const line = stripAnsi(rawLine).replace(/\s+$/, "");
+    const packageSource = line.match(/^ {4}((?:npm|git):.+)$/)?.[1];
+    if (packageSource) {
+      packageExtensions.push(normalizePackageSource(packageSource));
+      foundItem = true;
+      continue;
+    }
+
+    const path = line.match(/^ {4}(\S.*)$/)?.[1];
+    if (!path || /^(?:project|user|path)$/.test(path)) continue;
+
+    const name = normalizeExtensionName(path);
+    if (
+      localExtensionNames.has(name) ||
+      /(?:^|\/)\.pi\/(?:agent\/)?extensions(?:\/|$)/.test(
+        path.replace(/\\/g, "/"),
+      )
+    ) {
+      localExtensions.push(name);
+    } else {
+      sourceExtensions.push(path.replace(/\\/g, "/"));
+    }
+    foundItem = true;
+  }
+
+  if (!foundItem) return undefined;
+  return {
+    localExtensions: sortExtensionNames(unique(localExtensions)),
+    packageExtensions: sortExtensionNames(unique(packageExtensions)),
+    sourceExtensions: sortExtensionNames(unique(sourceExtensions)),
+  };
+}
+
+function classifyCompactExtensionLabels(
+  labels: string[],
+  localExtensionNames: Set<string>,
+): ExtensionGroups {
+  const localExtensions: string[] = [];
+  const packageExtensions: string[] = [];
+  const sourceExtensions: string[] = [];
+
+  for (const label of labels) {
+    const name = normalizeExtensionName(label);
+    const indexParent = label
+      .replace(/\\/g, "/")
+      .match(/(?:^|\/)([^/]+)\/index\.(?:[cm]?[jt]s)$/)?.[1];
+    if (
+      localExtensionNames.has(name) ||
+      localExtensionNames.has(indexParent ?? "")
+    )
+      localExtensions.push(name);
+    else if (isPackageSource(label) || name.startsWith("@"))
+      packageExtensions.push(
+        isPackageSource(label) ? normalizePackageSource(label) : name,
+      );
+    else if (isExplicitSourcePath(label)) sourceExtensions.push(name);
+    else packageExtensions.push(name);
+  }
+
+  return {
+    localExtensions: sortExtensionNames(unique(localExtensions)),
+    packageExtensions: sortExtensionNames(unique(packageExtensions)),
+    sourceExtensions: sortExtensionNames(unique(sourceExtensions)),
+  };
 }
 
 function getLocalExtensionNames(): Set<string> {
@@ -199,6 +319,7 @@ function getLocalExtensionNames(): Set<string> {
 export function parseWelcomeResources(
   text: string,
   localExtensionNames = getLocalExtensionNames(),
+  expandedExtensionsText?: string,
 ): WelcomeResources {
   const bodies = new Map<WelcomeSection, string[]>();
   let currentSection: WelcomeSection | undefined;
@@ -220,14 +341,23 @@ export function parseWelcomeResources(
   const skills = unique(splitList(bodies.get("Skills") ?? []));
   const prompts = unique(splitList(bodies.get("Prompts") ?? []));
   const extensionLabels = unique(splitList(bodies.get("Extensions") ?? []));
-  const extensions = sortExtensionNames(
-    unique(extensionLabels.map(normalizeExtensionName)),
-  );
-  const vendoredExtensions = extensions.filter(
-    (name) => !localExtensionNames.has(name),
-  );
+  const groups =
+    parseExpandedExtensionGroups(expandedExtensionsText, localExtensionNames) ??
+    classifyCompactExtensionLabels(extensionLabels, localExtensionNames);
+  const extensions = [
+    ...groups.localExtensions,
+    ...groups.packageExtensions,
+    ...groups.sourceExtensions,
+  ];
 
-  return { context, skills, prompts, extensions, vendoredExtensions };
+  return {
+    context,
+    skills,
+    prompts,
+    extensions,
+    packageExtensions: groups.packageExtensions,
+    sourceExtensions: groups.sourceExtensions,
+  };
 }
 
 function takeResourcePanel(tui: TUI): ResourceBridge | undefined {
@@ -331,12 +461,14 @@ function getSharedMultiColumnCount(
   resources: WelcomeResources,
   columnWidth: number,
 ): 2 | 3 {
-  const vendoredExtensions = new Set(
-    resources.vendoredExtensions ??
+  const packageExtensions = new Set(
+    resources.packageExtensions ??
+      resources.vendoredExtensions ??
       resources.extensions.filter((name) => name.startsWith("@")),
   );
+  const sourceExtensions = new Set(resources.sourceExtensions ?? []);
   const localExtensions = resources.extensions.filter(
-    (name) => !vendoredExtensions.has(name),
+    (name) => !packageExtensions.has(name) && !sourceExtensions.has(name),
   );
   const multiColumnLists = [resources.skills, localExtensions].filter(
     (items) => items.length > MAX_LIST_ROWS_PER_COLUMN,
@@ -417,7 +549,8 @@ function appendSection(
 function appendExtensionsSection(
   lines: string[],
   extensions: string[],
-  vendoredExtensionNames: string[] | undefined,
+  packageExtensionNames: string[] | undefined,
+  sourceExtensionNames: string[] | undefined,
   theme: Theme,
   columnWidth: number,
   sharedColumnCount: 2 | 3,
@@ -430,30 +563,48 @@ function appendExtensionsSection(
     return;
   }
 
-  const vendoredExtensions = new Set(
+  const packageExtensions = new Set(
     // Keep direct callers that provide only `extensions` backward compatible.
-    vendoredExtensionNames ?? extensions.filter((name) => name.startsWith("@")),
+    packageExtensionNames ?? extensions.filter((name) => name.startsWith("@")),
   );
+  const sourceExtensions = new Set(sourceExtensionNames ?? []);
   const localExtensions = extensions.filter(
-    (name) => !vendoredExtensions.has(name),
+    (name) => !packageExtensions.has(name) && !sourceExtensions.has(name),
   );
-  const packageExtensions = extensions.filter((name) =>
-    vendoredExtensions.has(name),
+  const installedPackageExtensions = extensions.filter((name) =>
+    packageExtensions.has(name),
   );
-  if (localExtensions.length > 0) {
-    appendColumnRows(
-      lines,
-      localExtensions,
-      theme,
-      columnWidth,
-      sharedColumnCount,
-    );
-  }
-  if (localExtensions.length > 0 && packageExtensions.length > 0) {
-    lines.push("");
-  }
-  if (packageExtensions.length > 0) {
-    appendSingleColumnRows(lines, packageExtensions, theme, columnWidth);
+  const linkedSourceExtensions = extensions.filter((name) =>
+    sourceExtensions.has(name),
+  );
+  const groups = [
+    { title: "Local", items: localExtensions, multiColumn: true },
+    {
+      title: "Packages",
+      items: installedPackageExtensions,
+      multiColumn: false,
+    },
+    {
+      title: "Source paths",
+      items: linkedSourceExtensions,
+      multiColumn: false,
+    },
+  ].filter(({ items }) => items.length > 0);
+
+  for (const [index, group] of groups.entries()) {
+    if (index > 0) lines.push("");
+    lines.push(theme.fg("muted", `  ${group.title}`));
+    if (group.multiColumn) {
+      appendColumnRows(
+        lines,
+        group.items,
+        theme,
+        columnWidth,
+        sharedColumnCount,
+      );
+    } else {
+      appendSingleColumnRows(lines, group.items, theme, columnWidth);
+    }
   }
 }
 
@@ -498,7 +649,8 @@ function renderResourceColumn(
   appendExtensionsSection(
     lines,
     resources.extensions,
-    resources.vendoredExtensions,
+    resources.packageExtensions ?? resources.vendoredExtensions,
+    resources.sourceExtensions,
     theme,
     columnWidth,
     sharedColumnCount,
@@ -616,9 +768,13 @@ class WelcomeHeader implements Component {
       return;
     }
 
-    const { resourceText } = snapshot;
+    const { resourceText, expandedExtensionsText } = snapshot;
     const candidateResources = resourceText
-      ? parseWelcomeResources(resourceText)
+      ? parseWelcomeResources(
+          resourceText,
+          getLocalExtensionNames(),
+          expandedExtensionsText,
+        )
       : undefined;
     // Pi 0.80 builds this panel synchronously. If a future Pi populates it
     // asynchronously after Extensions appears, this snapshot can be incomplete.
