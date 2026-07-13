@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Summarize the extension's main benefits at the top of the package README.
+
 ## 0.1.1
 
 - Add the welcome-screen screenshot to the GitHub and npm package pages.

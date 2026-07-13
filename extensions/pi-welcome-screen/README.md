@@ -4,19 +4,18 @@ A compact, centered startup screen for the [Pi coding agent](https://pi.dev). It
 
 ![Pi welcome screen showing context, skills, prompts, and extensions](https://raw.githubusercontent.com/kaushikgopal/pi-kaush/main/extensions/pi-welcome-screen/assets/pi-welcome.webp)
 
-## Features
+## Why use it
 
-- Responsive stacked and wide terminal layouts
-- Pi version displayed beside a compact banner
-- Loaded resources grouped into readable sections
-- Extensions split into Pi-local, installed-package, and linked source-path groups
-- Full linked source paths shown instead of ambiguous labels such as `src`
-- Unknown startup diagnostics preserved through a fail-safe fallback
+- **Zero runtime dependencies** — installs as readable TypeScript without pulling additional packages into your Pi setup.
+- **Context files in load order** — shows exactly which instructions Pi loaded and the order in which they apply.
+- **Extensions grouped by source** — separates Pi-local extensions, installed packages, and linked source paths.
+- **Responsive layout** — switches between stacked and side-by-side views, with two- or three-column lists based on terminal width.
+- **Fail-safe behavior** — if the startup data or UI shape is unfamiliar, restores Pi's untouched native resource panel instead of hiding information.
 
 ## Install
 
 ```sh
-pi install npm:@pi-kaush/pi-welcome-screen@0.1.1
+pi install npm:@pi-kaush/pi-welcome-screen@0.1.2
 ```
 
 Restart Pi or run `/reload`.
