@@ -4,6 +4,18 @@ Fork the current Pi conversation into a right-hand side session, continue workin
 
 The extension is intentionally narrow: it supports Herdr and Ghostty, shares the current working directory, and adds no background service or model call of its own.
 
+## Why another side-session workflow?
+
+Pi already has useful primitives for branching and side questions. This extension combines their useful parts for longer parallel work without trying to replace them:
+
+- `/fork` and `/clone` create another conversation path, but you continue by moving the active Pi session to that path.
+- BTW-style extensions are excellent for quick questions while the main agent runs, usually through a custom panel or an in-memory side thread.
+- `pi-split-session` creates a normal persisted Pi session in another terminal pane. The main session stays visible and keeps running, while the side gets Pi's normal editor, tools, commands, model, and session history.
+
+That makes it a good fit when the side task is more than a quick question: investigating code, trying an approach, reviewing a change, or iterating through several follow-ups. When the side work is ready, its own agent writes a clean handoff and the main session imports only that summary. The main context stays small unless you explicitly request the full transcript.
+
+The trade-off is deliberate: a real side terminal is heavier than a one-off BTW request, but it avoids building another conversation UI, hidden agent runtime, transcript model, or summarizer inside the extension. For a quick disposable question, `/btw` may be the better tool. For sustained parallel work that should remain a first-class Pi session, use `/split`.
+
 ## Install
 
 After the first npm release:
@@ -54,14 +66,16 @@ For diagnostics, explicitly import the complete text transcript:
 
 Summary and full-transcript imports are tracked separately, while repeated imports of the same format are ignored.
 
-## Terminal behavior
+## Requirements and constraints
 
-- Inside Herdr, `/split` opens a right-hand Herdr agent split.
-- Outside Herdr on macOS, it opens a right-hand Ghostty split through AppleScript.
-- Without either supported host, it fails before copying a session.
-- Ambiguous launch failures retain an `[unconfirmed]` session in the import chooser so work can still be recovered.
+- **Herdr is the preferred host.** When Pi is running inside the cross-platform [Herdr](https://herdr.dev) multiplexer, `/split` opens a right-hand Herdr agent split.
+- **Ghostty is the fallback.** Outside Herdr, macOS users can open a right-hand [Ghostty](https://ghostty.org) split through its AppleScript API.
+- **Other terminals are not supported automatically.** Without an active Herdr session or Ghostty on macOS, `/split` fails before copying a session. Supporting another terminal requires adapting the small launch boundary in the extension.
+- **Conversation isolation is not filesystem isolation.** Main and side sessions share the same working directory and files, so simultaneous edits can affect each other.
+- **The side remains a normal Pi session.** Close it manually when finished, or resume it later through Pi's session workflow.
+- **Ambiguous launches remain recoverable.** If a host may have opened despite a timeout, the retained child appears as `[unconfirmed]` in the import chooser.
 
-The main and side sessions share the same working directory and files. This extension isolates conversation state, not filesystem changes.
+Requires Pi 0.80.6 or newer. Ghostty fallback requires macOS, Ghostty AppleScript support, and macOS Automation permission.
 
 ## Commands
 
@@ -80,8 +94,6 @@ The main and side sessions share the same working directory and files. This exte
 - The side agent creates the summary; the main session never receives the side transcript unless `/split-import-full` is invoked.
 - Multiple side sessions remain selectable with a small TUI chooser.
 - Removing the package removes the commands; existing custom entries become inert and imported handoffs remain ordinary session context.
-
-Requires Pi 0.80.6 or newer. Ghostty fallback requires macOS and Ghostty AppleScript support.
 
 ## Development
 
