@@ -32,10 +32,13 @@ The extension highlights known `$skill-name` aliases in the existing editor and 
 
 Pi still owns skill discovery, expansion, and slash-command handling.
 
+While typing, Pi's native autocomplete suggests loaded skills after `$`. For example, `$rev` offers `$review-my`; use the normal autocomplete keys to select it. Typing a space after `$` or a partial alias closes the suggestions.
+
 ## Behavior
 
 - Only aliases matching loaded Pi skills are highlighted or transformed.
 - A prompt referencing exactly one known skill is transformed. Repeating that same skill still counts as one skill.
 - Prompts referencing multiple different skills are left unchanged because Pi does not expose a native skill-composition command.
 - Slash commands, unknown `$tokens`, and extension-generated input are left unchanged.
-- The extension does not replace the editor or add autocomplete. It installs one guarded render wrapper on Pi's existing editor so loaded skill aliases can be colored.
+- Autocomplete uses Pi's existing provider and only filters loaded skill names in memory.
+- The extension does not replace the editor. It installs one guarded render wrapper on Pi's existing editor so loaded skill aliases can be colored.

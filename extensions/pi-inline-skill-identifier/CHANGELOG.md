@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Suggest loaded skills through Pi's native autocomplete while typing `$skill-name` aliases.
+
 ## 0.1.0
 
 - Highlight loaded `$skill-name` aliases in Pi's existing editor.
