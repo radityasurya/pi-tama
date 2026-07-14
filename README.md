@@ -49,3 +49,27 @@ pi -e ~/path/to/pi-kaush/extensions/pi-welcome-screen/src/index.ts
 ```
 
 Run one command for the extension you want. This loads the live TypeScript source without installing or copying it. It also keeps your normally configured Pi extensions enabled. Use `--no-extensions` before `-e` if you want to test it in isolation.
+
+## Publishing
+
+Packages publish from `.github/workflows/publish.yml` with npm Trusted Publishing. GitHub Actions exchanges its OIDC identity for a short-lived npm credential, so the repository stores no npm write token.
+
+Each npm package must trust the following publisher:
+
+- Provider: GitHub Actions
+- Organization or user: `kaushikgopal`
+- Repository: `pi-kaush`
+- Workflow filename: `publish.yml`
+- Environment: `npm`
+- Allowed action: `npm publish`
+
+Create a GitHub release whose tag identifies the workspace and exactly matches its package version:
+
+```text
+pi-double-paste-v0.1.0
+pi-openai-text-verbosity-v0.1.0
+pi-split-session-v0.1.0
+pi-welcome-screen-v0.1.2
+```
+
+The workflow verifies the tag against `package.json`, runs the full repository check, and publishes only that workspace. A package's first release must be bootstrapped interactively on npm before its Trusted Publisher can be configured; subsequent releases use GitHub OIDC without local login or write-action 2FA prompts.
