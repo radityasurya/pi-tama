@@ -71,7 +71,8 @@ export default function promptSuggestions(pi: ExtensionAPI) {
     if (!text) return;
     const role = (event.message as { role?: string }).role;
     if (role === "user") lastUserText = text.slice(0, USER_CONTEXT_CHARS);
-    else if (role === "assistant") lastAssistantText = text.slice(0, CONTEXT_CHARS);
+    else if (role === "assistant")
+      lastAssistantText = text.slice(0, CONTEXT_CHARS);
   });
 
   // Generate + cache suggestions once the agent settles.
@@ -95,7 +96,10 @@ export default function promptSuggestions(pi: ExtensionAPI) {
       // Allow Tab to trigger when we have suggestions ready.
       shouldTriggerFileCompletion(lines, cursorLine, cursorCol) {
         if (cachedSuggestions.length > 0) return true;
-        return current.shouldTriggerFileCompletion?.(lines, cursorLine, cursorCol) ?? true;
+        return (
+          current.shouldTriggerFileCompletion?.(lines, cursorLine, cursorCol) ??
+          true
+        );
       },
       async getSuggestions(lines, cursorLine, cursorCol, opts) {
         if (cachedSuggestions.length > 0) {
@@ -126,7 +130,13 @@ export default function promptSuggestions(pi: ExtensionAPI) {
           newLines[cursorLine] = newBefore + after;
           return { lines: newLines, cursorLine, cursorCol: newBefore.length };
         }
-        return current.applyCompletion(lines, cursorLine, cursorCol, item, prefix);
+        return current.applyCompletion(
+          lines,
+          cursorLine,
+          cursorCol,
+          item,
+          prefix,
+        );
       },
     };
   }
