@@ -89,6 +89,9 @@ For **each** package in the table, do one of the two paths below. Path A is for
 a package that has **already been published at least once** (it exists on npm);
 Path B is for a **brand-new** package that has never been published.
 
+> All nine packages are currently unpublished, so each starts with **Path B**
+> (which then continues into Path A).
+
 ### Path A — package already exists on npm
 
 1. Sign in to <https://www.npmjs.com>.
