@@ -152,6 +152,18 @@ export class LineEdit {
   }
 
   handle(data: string): void {
+    // Bracketed paste: ESC[200~<content>ESC[201~. Pi re-wraps pastes with
+    // these markers before reaching us, so without stripping them a paste
+    // starts with ESC and is silently dropped by the control-sequence guard
+    // below. Collapse newlines (this is a single-line field) and insert.
+    if (data.includes("\u001b[200~")) {
+      const content = data
+        .replace(/\u001b\[200~/g, "")
+        .replace(/\u001b\[201~/g, "");
+      const cleaned = content.replace(/[\r\n]+/g, " ").trim();
+      if (cleaned) this.insert(cleaned);
+      return;
+    }
     // Escape sequences we recognize.
     if (data === "\u007f" || data === "\b") {
       this.backspace();

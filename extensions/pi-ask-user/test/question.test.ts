@@ -155,4 +155,17 @@ describe("LineEdit", () => {
     expect(edit.text).toBe("");
     expect(edit.cursor).toBe(0);
   });
+
+  test("strips bracketed-paste markers and inserts the content", () => {
+    const edit = new LineEdit();
+    edit.handle("\u001b[200~pasted answer\u001b[201~");
+    expect(edit.text).toBe("pasted answer");
+    expect(edit.cursor).toBe("pasted answer".length);
+  });
+
+  test("collapses newlines in a pasted multi-line block", () => {
+    const edit = new LineEdit();
+    edit.handle("\u001b[200~line one\nline two\r\nline three\u001b[201~");
+    expect(edit.text).toBe("line one line two line three");
+  });
 });
