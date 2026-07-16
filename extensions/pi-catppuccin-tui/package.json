@@ -1,0 +1,41 @@
+{
+  "name": "@pi-tama/pi-catppuccin-tui",
+  "version": "0.1.3",
+  "description": "Exact Catppuccin themes for Pi, plus optional Catppuccin TUI polish.",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "pi-theme",
+    "catppuccin",
+    "tui",
+    "terminal",
+    "theme"
+  ],
+  "files": [
+    "assets/preview.svg",
+    "extensions",
+    "scripts",
+    "themes",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build:themes": "node scripts/generate-themes.mjs",
+    "validate": "node scripts/validate-themes.mjs && node scripts/validate-extension.mjs",
+    "pack:dry-run": "npm pack --dry-run --json"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "pi": {
+    "themes": [
+      "./themes"
+    ],
+    "extensions": [
+      "./extensions/catppuccin-tui.ts"
+    ]
+  }
+}

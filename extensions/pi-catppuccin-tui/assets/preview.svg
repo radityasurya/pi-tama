@@ -1,0 +1,49 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#181926"/>
+  <circle cx="1060" cy="118" r="180" fill="#c6a0f6" opacity="0.14"/>
+  <circle cx="170" cy="520" r="220" fill="#8aadf4" opacity="0.12"/>
+  <rect x="88" y="72" width="1024" height="486" rx="28" fill="#1e2030" stroke="#494d64" stroke-width="2"/>
+  <rect x="118" y="106" width="964" height="52" rx="16" fill="#24273a"/>
+  <circle cx="148" cy="132" r="7" fill="#ed8796"/>
+  <circle cx="172" cy="132" r="7" fill="#eed49f"/>
+  <circle cx="196" cy="132" r="7" fill="#a6da95"/>
+  <text x="236" y="139" fill="#8087a2" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="18">pi-catppuccin-tui</text>
+
+  <text x="118" y="218" fill="#cad3f5" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="50" font-weight="700">Catppuccin for Pi</text>
+  <text x="120" y="260" fill="#a5adcb" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24">Four exact flavors plus optional TUI polish</text>
+
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="18">
+    <rect x="118" y="310" width="216" height="112" rx="18" fill="#eff1f5" stroke="#bcc0cc" stroke-width="2"/>
+    <text x="142" y="350" fill="#4c4f69" font-weight="700">Latte</text>
+    <rect x="142" y="374" width="34" height="12" rx="6" fill="#8839ef"/>
+    <rect x="184" y="374" width="34" height="12" rx="6" fill="#1e66f5"/>
+    <rect x="226" y="374" width="34" height="12" rx="6" fill="#40a02b"/>
+    <rect x="268" y="374" width="34" height="12" rx="6" fill="#d20f39"/>
+
+    <rect x="362" y="310" width="216" height="112" rx="18" fill="#303446" stroke="#626880" stroke-width="2"/>
+    <text x="386" y="350" fill="#c6d0f5" font-weight="700">Frappé</text>
+    <rect x="386" y="374" width="34" height="12" rx="6" fill="#ca9ee6"/>
+    <rect x="428" y="374" width="34" height="12" rx="6" fill="#8caaee"/>
+    <rect x="470" y="374" width="34" height="12" rx="6" fill="#a6d189"/>
+    <rect x="512" y="374" width="34" height="12" rx="6" fill="#e78284"/>
+
+    <rect x="606" y="310" width="216" height="112" rx="18" fill="#24273a" stroke="#c6a0f6" stroke-width="2"/>
+    <text x="630" y="350" fill="#cad3f5" font-weight="700">Macchiato</text>
+    <rect x="630" y="374" width="34" height="12" rx="6" fill="#c6a0f6"/>
+    <rect x="672" y="374" width="34" height="12" rx="6" fill="#8aadf4"/>
+    <rect x="714" y="374" width="34" height="12" rx="6" fill="#a6da95"/>
+    <rect x="756" y="374" width="34" height="12" rx="6" fill="#ed8796"/>
+
+    <rect x="850" y="310" width="216" height="112" rx="18" fill="#1e1e2e" stroke="#585b70" stroke-width="2"/>
+    <text x="874" y="350" fill="#cdd6f4" font-weight="700">Mocha</text>
+    <rect x="874" y="374" width="34" height="12" rx="6" fill="#cba6f7"/>
+    <rect x="916" y="374" width="34" height="12" rx="6" fill="#89b4fa"/>
+    <rect x="958" y="374" width="34" height="12" rx="6" fill="#a6e3a1"/>
+    <rect x="1000" y="374" width="34" height="12" rx="6" fill="#f38ba8"/>
+  </g>
+
+  <rect x="118" y="466" width="964" height="58" rx="16" fill="#24273a" stroke="#494d64" stroke-width="1.5"/>
+  <text x="144" y="502" fill="#c6a0f6" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="20">●</text>
+  <text x="176" y="502" fill="#a5adcb" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="20">/catppuccin-tui indicator on</text>
+  <text x="760" y="502" fill="#8087a2" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="20">compact footer · status · pulse</text>
+</svg>
