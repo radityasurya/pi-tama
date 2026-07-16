@@ -1,8 +1,8 @@
-# @pi-kaush/pi-welcome-screen
+# @pi-tama/pi-welcome-screen
 
 A compact, centered startup screen for the [Pi coding agent](https://pi.dev). It keeps Pi's loaded context, skills, prompts, and extensions visible while replacing the stock header with a responsive branded layout.
 
-![Pi welcome screen showing context, skills, prompts, and extensions](https://raw.githubusercontent.com/kaushikgopal/pi-kaush/main/extensions/pi-welcome-screen/assets/pi-welcome.webp)
+![Pi welcome screen showing context, skills, prompts, and extensions](https://raw.githubusercontent.com/radityasurya/pi-tama/main/extensions/pi-welcome-screen/assets/pi-welcome.webp)
 
 ## Why use it
 
@@ -15,7 +15,7 @@ A compact, centered startup screen for the [Pi coding agent](https://pi.dev). It
 ## Install
 
 ```sh
-pi install npm:@pi-kaush/pi-welcome-screen@0.1.2
+pi install npm:@pi-tama/pi-welcome-screen@0.1.2
 ```
 
 Restart Pi or run `/reload`.
@@ -25,7 +25,7 @@ Restart Pi or run `/reload`.
 From any project, point Pi at the extension's source file:
 
 ```sh
-pi -e ~/path/to/pi-kaush/extensions/pi-welcome-screen/src/index.ts
+pi -e ~/path/to/pi-tama/extensions/pi-welcome-screen/src/index.ts
 ```
 
 Use `--no-extensions` before `-e` to test it without your other configured extensions.
@@ -60,7 +60,7 @@ npm run check
 Inspect the exact publish payload:
 
 ```sh
-npm pack --workspace @pi-kaush/pi-welcome-screen --dry-run
+npm pack --workspace @pi-tama/pi-welcome-screen --dry-run
 ```
 
 ## License

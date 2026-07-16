@@ -1,5 +1,5 @@
 {
-  "name": "@pi-kaush/pi-openai-text-verbosity",
+  "name": "@pi-tama/pi-openai-text-verbosity",
   "version": "0.1.0",
   "description": "Configure OpenAI Responses text verbosity from Pi models.json entries.",
   "license": "MIT",
@@ -13,13 +13,13 @@
     "openai",
     "verbosity"
   ],
-  "homepage": "https://github.com/kaushikgopal/pi-kaush/tree/main/extensions/pi-openai-text-verbosity#readme",
+  "homepage": "https://github.com/radityasurya/pi-tama/tree/main/extensions/pi-openai-text-verbosity#readme",
   "bugs": {
-    "url": "https://github.com/kaushikgopal/pi-kaush/issues"
+    "url": "https://github.com/radityasurya/pi-tama/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaushikgopal/pi-kaush.git",
+    "url": "git+https://github.com/radityasurya/pi-tama.git",
     "directory": "extensions/pi-openai-text-verbosity"
   },
   "files": [

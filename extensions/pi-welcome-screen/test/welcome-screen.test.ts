@@ -133,7 +133,7 @@ describe("welcome resource formatting", () => {
   });
 
   test("uses expanded provenance to separate local, package, and source extensions", () => {
-    const sourcePath = "~/dev/pi-kaush/extensions/pi-double-paste/src";
+    const sourcePath = "~/dev/pi-tama/extensions/pi-double-paste/src";
     const resources = parseWelcomeResources(
       `[Extensions]\n  mitsupi, src, @ff-labs/pi-fff`,
       new Set(["mitsupi"]),
@@ -513,8 +513,8 @@ describe("welcome resource-panel bridge", () => {
         return [
           "[Extensions]",
           "  user",
-          "    ~/dev/pi-kaush/extensions/pi-double-paste/src",
-          "    ~/dev/pi-kaush/extensions/pi-welcome-screen/src",
+          "    ~/dev/pi-tama/extensions/pi-double-paste/src",
+          "    ~/dev/pi-tama/extensions/pi-welcome-screen/src",
         ].join("\n");
       },
     };
@@ -557,7 +557,7 @@ describe("welcome resource-panel bridge", () => {
     const firstRender = header?.render(80);
     expect(firstRender?.join("\n")).toContain("• AGENTS.md");
     expect(firstRender?.join("\n")).toContain(
-      "~/dev/pi-kaush/extensions/pi-double-paste/src",
+      "~/dev/pi-tama/extensions/pi-double-paste/src",
     );
     expect(firstRender?.join("\n")).not.toMatch(/• src\s*$/m);
     expect(tui.children).not.toContain(panel);
@@ -611,7 +611,7 @@ describe("welcome resource-panel bridge", () => {
           "[Prompts]",
           "  /implement",
           "[Extensions]",
-          "  @pi-kaush/pi-welcome-screen:src/index.ts",
+          "  @pi-tama/pi-welcome-screen:src/index.ts",
         ].join("\n");
       },
     };

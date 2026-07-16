@@ -1,5 +1,5 @@
 {
-  "name": "@pi-kaush/pi-split-session",
+  "name": "@pi-tama/pi-split-session",
   "version": "0.1.0",
   "description": "Fork a Pi session into a Herdr or Ghostty split and import a clean side-agent handoff.",
   "license": "MIT",
@@ -15,13 +15,13 @@
     "herdr",
     "ghostty"
   ],
-  "homepage": "https://github.com/kaushikgopal/pi-kaush/tree/main/extensions/pi-split-session#readme",
+  "homepage": "https://github.com/radityasurya/pi-tama/tree/main/extensions/pi-split-session#readme",
   "bugs": {
-    "url": "https://github.com/kaushikgopal/pi-kaush/issues"
+    "url": "https://github.com/radityasurya/pi-tama/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaushikgopal/pi-kaush.git",
+    "url": "git+https://github.com/radityasurya/pi-tama.git",
     "directory": "extensions/pi-split-session"
   },
   "files": [

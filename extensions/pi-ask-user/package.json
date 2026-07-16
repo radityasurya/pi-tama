@@ -14,13 +14,13 @@
     "question",
     "prompt"
   ],
-  "homepage": "https://github.com/kaushikgopal/pi-tama/tree/main/extensions/pi-ask-user#readme",
+  "homepage": "https://github.com/radityasurya/pi-tama/tree/main/extensions/pi-ask-user#readme",
   "bugs": {
-    "url": "https://github.com/kaushikgopal/pi-tama/issues"
+    "url": "https://github.com/radityasurya/pi-tama/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaushikgopal/pi-tama.git",
+    "url": "git+https://github.com/radityasurya/pi-tama.git",
     "directory": "extensions/pi-ask-user"
   },
   "files": [

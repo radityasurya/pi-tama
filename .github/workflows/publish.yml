@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   publish:
-    if: startsWith(github.event.release.tag_name, 'pi-double-paste-v') || startsWith(github.event.release.tag_name, 'pi-inline-skill-identifier-v') || startsWith(github.event.release.tag_name, 'pi-openai-text-verbosity-v') || startsWith(github.event.release.tag_name, 'pi-split-session-v') || startsWith(github.event.release.tag_name, 'pi-welcome-screen-v')
+    if: startsWith(github.event.release.tag_name, 'pi-ask-user-v') || startsWith(github.event.release.tag_name, 'pi-double-paste-v') || startsWith(github.event.release.tag_name, 'pi-inline-skill-identifier-v') || startsWith(github.event.release.tag_name, 'pi-openai-text-verbosity-v') || startsWith(github.event.release.tag_name, 'pi-split-session-v') || startsWith(github.event.release.tag_name, 'pi-welcome-screen-v')
     runs-on: ubuntu-latest
     environment: npm
     steps:
@@ -28,28 +28,33 @@ jobs:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: |
           case "$RELEASE_TAG" in
+            pi-ask-user-v*)
+              workspace="@pi-tama/pi-ask-user"
+              directory="extensions/pi-ask-user"
+              prefix="pi-ask-user-v"
+              ;;
             pi-double-paste-v*)
-              workspace="@pi-kaush/pi-double-paste"
+              workspace="@pi-tama/pi-double-paste"
               directory="extensions/pi-double-paste"
               prefix="pi-double-paste-v"
               ;;
             pi-inline-skill-identifier-v*)
-              workspace="@pi-kaush/pi-inline-skill-identifier"
+              workspace="@pi-tama/pi-inline-skill-identifier"
               directory="extensions/pi-inline-skill-identifier"
               prefix="pi-inline-skill-identifier-v"
               ;;
             pi-openai-text-verbosity-v*)
-              workspace="@pi-kaush/pi-openai-text-verbosity"
+              workspace="@pi-tama/pi-openai-text-verbosity"
               directory="extensions/pi-openai-text-verbosity"
               prefix="pi-openai-text-verbosity-v"
               ;;
             pi-split-session-v*)
-              workspace="@pi-kaush/pi-split-session"
+              workspace="@pi-tama/pi-split-session"
               directory="extensions/pi-split-session"
               prefix="pi-split-session-v"
               ;;
             pi-welcome-screen-v*)
-              workspace="@pi-kaush/pi-welcome-screen"
+              workspace="@pi-tama/pi-welcome-screen"
               directory="extensions/pi-welcome-screen"
               prefix="pi-welcome-screen-v"
               ;;

@@ -1,4 +1,4 @@
-# @pi-kaush/pi-split-session
+# @pi-tama/pi-split-session
 
 Fork the current Pi conversation into a right-hand side session, continue working there, and import a clean handoff into the main session.
 
@@ -21,7 +21,7 @@ The trade-off is deliberate: a real side terminal is heavier than a one-off BTW 
 After the first npm release:
 
 ```bash
-pi install npm:@pi-kaush/pi-split-session@0.1.0
+pi install npm:@pi-tama/pi-split-session@0.1.0
 ```
 
 For local development:
@@ -107,7 +107,7 @@ npm run check
 Inspect the publish payload:
 
 ```bash
-npm pack --workspace @pi-kaush/pi-split-session --dry-run
+npm pack --workspace @pi-tama/pi-split-session --dry-run
 ```
 
 ## License

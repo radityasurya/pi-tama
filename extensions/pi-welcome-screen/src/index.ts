@@ -30,7 +30,7 @@ const LIST_COLUMN_GAP = 2;
 const RESOURCE_POLL_INTERVAL_MS = 50;
 const MAX_RESOURCE_RETRIES = 3;
 const RESOURCE_PANEL_INDEX = 1;
-const RESOURCE_BRIDGE_KEY = "__piKaushWelcomeScreenResourceBridge";
+const RESOURCE_BRIDGE_KEY = "__piTamaWelcomeScreenResourceBridge";
 
 let cachedLocalExtensionNames: Set<string> | undefined;
 
@@ -170,7 +170,7 @@ function isWelcomeScreenExtension(name: string): boolean {
   return (
     name === "welcome-screen" ||
     name === "pi-welcome-screen" ||
-    name === "@pi-kaush/pi-welcome-screen" ||
+    name === "@pi-tama/pi-welcome-screen" ||
     name === "src" ||
     /\/(?:pi-)?welcome-screen(?:\/|$)/.test(normalized)
   );

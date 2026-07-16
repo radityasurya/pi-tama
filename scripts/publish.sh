@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Publish a pi-kaush extension to npm via GitHub Actions OIDC.
+# Publish a pi-tama extension to npm via GitHub Actions OIDC.
 #
 # Usage:
 #   make publish PACKAGE=pi-split-session               # patch bump

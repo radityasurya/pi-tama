@@ -1,4 +1,4 @@
-# @pi-kaush/pi-openai-text-verbosity
+# @pi-tama/pi-openai-text-verbosity
 
 Configure OpenAI Responses `text.verbosity` per provider or model from Pi's `models.json`.
 
@@ -9,7 +9,7 @@ Load the extension from a local checkout:
 ```json
 {
   "extensions": [
-    "~/dev/oss/pi-kaush/extensions/pi-openai-text-verbosity/src/index.ts"
+    "~/dev/oss/pi-tama/extensions/pi-openai-text-verbosity/src/index.ts"
   ]
 }
 ```

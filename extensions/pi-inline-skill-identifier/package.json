@@ -1,5 +1,5 @@
 {
-  "name": "@pi-kaush/pi-inline-skill-identifier",
+  "name": "@pi-tama/pi-inline-skill-identifier",
   "version": "0.1.1",
   "description": "Highlight $skill aliases and route one inline skill reference through Pi's native skill command.",
   "license": "MIT",
@@ -13,13 +13,13 @@
     "skills",
     "inline-aliases"
   ],
-  "homepage": "https://github.com/kaushikgopal/pi-kaush/tree/main/extensions/pi-inline-skill-identifier#readme",
+  "homepage": "https://github.com/radityasurya/pi-tama/tree/main/extensions/pi-inline-skill-identifier#readme",
   "bugs": {
-    "url": "https://github.com/kaushikgopal/pi-kaush/issues"
+    "url": "https://github.com/radityasurya/pi-tama/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaushikgopal/pi-kaush.git",
+    "url": "git+https://github.com/radityasurya/pi-tama.git",
     "directory": "extensions/pi-inline-skill-identifier"
   },
   "files": [

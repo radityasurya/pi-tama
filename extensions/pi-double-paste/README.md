@@ -1,4 +1,4 @@
-# @pi-kaush/pi-double-paste
+# @pi-tama/pi-double-paste
 
 Paste the same large block twice to expand Pi's compact paste markers into ordinary editable text.
 
@@ -19,7 +19,7 @@ That is useful until you need to edit the pasted text. This extension keeps Pi's
 After the first npm release:
 
 ```bash
-pi install npm:@pi-kaush/pi-double-paste@0.1.0
+pi install npm:@pi-tama/pi-double-paste@0.1.0
 ```
 
 For local development:
@@ -87,7 +87,7 @@ npm run check
 Inspect the exact publish payload:
 
 ```bash
-npm pack --workspace @pi-kaush/pi-double-paste --dry-run
+npm pack --workspace @pi-tama/pi-double-paste --dry-run
 ```
 
 ## License

@@ -1,5 +1,5 @@
 {
-  "name": "@pi-kaush/pi-welcome-screen",
+  "name": "@pi-tama/pi-welcome-screen",
   "version": "0.1.2",
   "description": "Replace Pi's startup header with centered branding and a compact resource summary.",
   "license": "MIT",
@@ -13,13 +13,13 @@
     "welcome-screen",
     "terminal-ui"
   ],
-  "homepage": "https://github.com/kaushikgopal/pi-kaush/tree/main/extensions/pi-welcome-screen#readme",
+  "homepage": "https://github.com/radityasurya/pi-tama/tree/main/extensions/pi-welcome-screen#readme",
   "bugs": {
-    "url": "https://github.com/kaushikgopal/pi-kaush/issues"
+    "url": "https://github.com/radityasurya/pi-tama/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaushikgopal/pi-kaush.git",
+    "url": "git+https://github.com/radityasurya/pi-tama.git",
     "directory": "extensions/pi-welcome-screen"
   },
   "files": [

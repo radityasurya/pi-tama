@@ -1,11 +1,11 @@
-# @pi-kaush/pi-inline-skill-identifier
+# @pi-tama/pi-inline-skill-identifier
 
 Use Codex-style `$skill-name` references in Pi prompts while keeping Pi's native skill loading.
 
 ## Install
 
 ```sh
-pi install npm:@pi-kaush/pi-inline-skill-identifier
+pi install npm:@pi-tama/pi-inline-skill-identifier
 ```
 
 Restart Pi or run `/reload`.
@@ -13,7 +13,7 @@ Restart Pi or run `/reload`.
 To run the extension from a local checkout instead:
 
 ```sh
-pi -e ~/path/to/pi-kaush/extensions/pi-inline-skill-identifier/src/index.ts
+pi -e ~/path/to/pi-tama/extensions/pi-inline-skill-identifier/src/index.ts
 ```
 
 ## Usage
