@@ -17,7 +17,7 @@ Agent skills live in [`skills/`](./skills) — `subagents` and `workflows`, pair
 | [`@pi-tama/pi-split-session`](./extensions/pi-split-session)                     | Fork a side session and import a clean side-agent handoff.                           |
 | [`@pi-tama/pi-welcome-screen`](./extensions/pi-welcome-screen)                   | Show a responsive startup header with Pi's loaded resources.                         |
 
-Every package is independently versioned and published to npm. Runtime source is readable TypeScript, and packages avoid runtime dependencies where practical.
+Every package is independently versioned and published to npm. Runtime source is readable TypeScript, and packages avoid runtime dependencies where practical. Releases publish **tokenlessly with provenance** via GitHub OIDC — see [**npm Trusted Publishing setup**](./docs/npm-trusted-publishing.md) for the one-time, per-package configuration.
 
 ## Use an extension
 
