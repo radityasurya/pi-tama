@@ -12,16 +12,16 @@ It does not affect how anything runs.
 Most extensions in `extensions/` are original to this repo. A few are
 inspired by — or adapted from — other open-source Pi setups:
 
-| Extension                                   | Origin                                                 | Notes                                                                                                 |
-| ------------------------------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `pi-ask-user`                               | adapted from [davis7dotsh/my-pi-setup][mps] `ask-user` | Rewritten for the `@pi-tama` workspace; arrow-key handling uses Pi's keybinding matcher (Kitty-safe). |
-| `pi-copy-all`                               | adapted from [davis7dotsh/my-pi-setup][mps] `copy-all` | Workspace package copy.                                                                               |
-| `pi-double-paste`                           | original                                               | Expand Pi's paste markers into editable text on second paste.                                         |
-| `pi-inline-skill-identifier`                | original                                               | Highlight/route Codex-style `$skill-name` references through native skills.                           |
-| `pi-openai-text-verbosity`                  | original                                               | Wire OpenAI Responses text verbosity to Pi model config.                                              |
-| `pi-split-session`                          | original                                               | Fork a side session with a clean side-agent handoff.                                                  |
-| `pi-welcome-screen`                         | original                                               | Responsive startup header showing Pi's loaded resources.                                              |
-| `pi-catppuccin-tui` / `pi-dashboard-footer` | original (in progress)                                 | Not yet published.                                                                                    |
+| Extension                                   | Origin                                                 | Notes                                                                                                      |
+| ------------------------------------------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
+| `pi-ask-user`                               | adapted from [davis7dotsh/my-pi-setup][mps] `ask-user` | Rewritten for the `@radityasurya` workspace; arrow-key handling uses Pi's keybinding matcher (Kitty-safe). |
+| `pi-copy-all`                               | adapted from [davis7dotsh/my-pi-setup][mps] `copy-all` | Workspace package copy.                                                                                    |
+| `pi-double-paste`                           | original                                               | Expand Pi's paste markers into editable text on second paste.                                              |
+| `pi-inline-skill-identifier`                | original                                               | Highlight/route Codex-style `$skill-name` references through native skills.                                |
+| `pi-openai-text-verbosity`                  | original                                               | Wire OpenAI Responses text verbosity to Pi model config.                                                   |
+| `pi-split-session`                          | original                                               | Fork a side session with a clean side-agent handoff.                                                       |
+| `pi-welcome-screen`                         | original                                               | Responsive startup header showing Pi's loaded resources.                                                   |
+| `pi-catppuccin-tui` / `pi-dashboard-footer` | original (in progress)                                 | Not yet published.                                                                                         |
 
 ### `personal/` (not published)
 

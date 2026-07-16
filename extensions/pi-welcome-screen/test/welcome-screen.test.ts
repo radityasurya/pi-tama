@@ -611,7 +611,7 @@ describe("welcome resource-panel bridge", () => {
           "[Prompts]",
           "  /implement",
           "[Extensions]",
-          "  @pi-tama/pi-welcome-screen:src/index.ts",
+          "  @radityasurya/pi-welcome-screen:src/index.ts",
         ].join("\n");
       },
     };

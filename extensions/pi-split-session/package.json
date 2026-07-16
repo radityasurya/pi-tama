@@ -1,5 +1,5 @@
 {
-  "name": "@pi-tama/pi-split-session",
+  "name": "@radityasurya/pi-split-session",
   "version": "0.1.0",
   "description": "Fork a Pi session into a Herdr or Ghostty split and import a clean side-agent handoff.",
   "license": "MIT",

@@ -1,4 +1,4 @@
-# @pi-tama/pi-dashboard-footer
+# @radityasurya/pi-dashboard-footer
 
 A two-line status footer for [Pi](https://pi.dev) that shows model, context usage, session cost, streaming tokens/s, and git status.
 
@@ -18,7 +18,7 @@ It replaces Pi's built-in footer with a denser dashboard and restores the built-
 ## Install
 
 ```sh
-pi install npm:@pi-tama/pi-dashboard-footer
+pi install npm:@radityasurya/pi-dashboard-footer
 ```
 
 Then restart Pi or run `/reload`.

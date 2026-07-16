@@ -1,4 +1,4 @@
-# @pi-tama/pi-welcome-screen
+# @radityasurya/pi-welcome-screen
 
 A compact, centered startup screen for the [Pi coding agent](https://pi.dev). It keeps Pi's loaded context, skills, prompts, and extensions visible while replacing the stock header with a responsive branded layout.
 
@@ -15,7 +15,7 @@ A compact, centered startup screen for the [Pi coding agent](https://pi.dev). It
 ## Install
 
 ```sh
-pi install npm:@pi-tama/pi-welcome-screen@0.1.2
+pi install npm:@radityasurya/pi-welcome-screen@0.1.2
 ```
 
 Restart Pi or run `/reload`.
@@ -60,7 +60,7 @@ npm run check
 Inspect the exact publish payload:
 
 ```sh
-npm pack --workspace @pi-tama/pi-welcome-screen --dry-run
+npm pack --workspace @radityasurya/pi-welcome-screen --dry-run
 ```
 
 ## License

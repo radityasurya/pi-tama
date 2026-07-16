@@ -1,4 +1,4 @@
-# @pi-tama/pi-copy-all
+# @radityasurya/pi-copy-all
 
 Copy all previous user and assistant messages in a [Pi](https://pi.dev) session to the clipboard.
 
@@ -7,7 +7,7 @@ Adds a `/copy-all` slash command that walks the active session branch, collects 
 ## Install
 
 ```sh
-pi install npm:@pi-tama/pi-copy-all
+pi install npm:@radityasurya/pi-copy-all
 ```
 
 Then restart Pi or run `/reload`.

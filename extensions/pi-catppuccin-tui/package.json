@@ -1,5 +1,5 @@
 {
-  "name": "@pi-tama/pi-catppuccin-tui",
+  "name": "@radityasurya/pi-catppuccin-tui",
   "version": "0.1.3",
   "description": "Exact Catppuccin themes for Pi, plus optional Catppuccin TUI polish.",
   "type": "module",

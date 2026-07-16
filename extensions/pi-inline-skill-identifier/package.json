@@ -1,5 +1,5 @@
 {
-  "name": "@pi-tama/pi-inline-skill-identifier",
+  "name": "@radityasurya/pi-inline-skill-identifier",
   "version": "0.1.1",
   "description": "Highlight $skill aliases and route one inline skill reference through Pi's native skill command.",
   "license": "MIT",

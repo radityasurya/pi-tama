@@ -1,5 +1,5 @@
 {
-  "name": "@pi-tama/pi-copy-all",
+  "name": "@radityasurya/pi-copy-all",
   "version": "0.1.0",
   "description": "Copy all previous user and assistant messages in a Pi session to the clipboard.",
   "license": "MIT",

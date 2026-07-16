@@ -1,5 +1,5 @@
 {
-  "name": "@pi-tama/pi-openai-text-verbosity",
+  "name": "@radityasurya/pi-openai-text-verbosity",
   "version": "0.1.0",
   "description": "Configure OpenAI Responses text verbosity from Pi models.json entries.",
   "license": "MIT",

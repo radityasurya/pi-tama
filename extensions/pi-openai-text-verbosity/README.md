@@ -1,4 +1,4 @@
-# @pi-tama/pi-openai-text-verbosity
+# @radityasurya/pi-openai-text-verbosity
 
 Configure OpenAI Responses `text.verbosity` per provider or model from Pi's `models.json`.
 

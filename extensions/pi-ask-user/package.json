@@ -1,5 +1,5 @@
 {
-  "name": "@pi-tama/pi-ask-user",
+  "name": "@radityasurya/pi-ask-user",
   "version": "0.1.0",
   "description": "A multiple-choice ask_user tool for Pi that lets the model ask one question at a time.",
   "license": "MIT",

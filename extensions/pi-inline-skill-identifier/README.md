@@ -1,11 +1,11 @@
-# @pi-tama/pi-inline-skill-identifier
+# @radityasurya/pi-inline-skill-identifier
 
 Use Codex-style `$skill-name` references in Pi prompts while keeping Pi's native skill loading.
 
 ## Install
 
 ```sh
-pi install npm:@pi-tama/pi-inline-skill-identifier
+pi install npm:@radityasurya/pi-inline-skill-identifier
 ```
 
 Restart Pi or run `/reload`.

@@ -170,7 +170,7 @@ function isWelcomeScreenExtension(name: string): boolean {
   return (
     name === "welcome-screen" ||
     name === "pi-welcome-screen" ||
-    name === "@pi-tama/pi-welcome-screen" ||
+    name === "@radityasurya/pi-welcome-screen" ||
     name === "src" ||
     /\/(?:pi-)?welcome-screen(?:\/|$)/.test(normalized)
   );

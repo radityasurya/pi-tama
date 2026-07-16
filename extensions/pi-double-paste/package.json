@@ -1,5 +1,5 @@
 {
-  "name": "@pi-tama/pi-double-paste",
+  "name": "@radityasurya/pi-double-paste",
   "version": "0.1.0",
   "description": "Paste the same large block twice to expand Pi's paste markers into editable text.",
   "license": "MIT",

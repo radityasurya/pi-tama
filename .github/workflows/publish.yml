@@ -29,47 +29,47 @@ jobs:
         run: |
           case "$RELEASE_TAG" in
             pi-ask-user-v*)
-              workspace="@pi-tama/pi-ask-user"
+              workspace="@radityasurya/pi-ask-user"
               directory="extensions/pi-ask-user"
               prefix="pi-ask-user-v"
               ;;
             pi-catppuccin-tui-v*)
-              workspace="@pi-tama/pi-catppuccin-tui"
+              workspace="@radityasurya/pi-catppuccin-tui"
               directory="extensions/pi-catppuccin-tui"
               prefix="pi-catppuccin-tui-v"
               ;;
             pi-copy-all-v*)
-              workspace="@pi-tama/pi-copy-all"
+              workspace="@radityasurya/pi-copy-all"
               directory="extensions/pi-copy-all"
               prefix="pi-copy-all-v"
               ;;
             pi-dashboard-footer-v*)
-              workspace="@pi-tama/pi-dashboard-footer"
+              workspace="@radityasurya/pi-dashboard-footer"
               directory="extensions/pi-dashboard-footer"
               prefix="pi-dashboard-footer-v"
               ;;
             pi-double-paste-v*)
-              workspace="@pi-tama/pi-double-paste"
+              workspace="@radityasurya/pi-double-paste"
               directory="extensions/pi-double-paste"
               prefix="pi-double-paste-v"
               ;;
             pi-inline-skill-identifier-v*)
-              workspace="@pi-tama/pi-inline-skill-identifier"
+              workspace="@radityasurya/pi-inline-skill-identifier"
               directory="extensions/pi-inline-skill-identifier"
               prefix="pi-inline-skill-identifier-v"
               ;;
             pi-openai-text-verbosity-v*)
-              workspace="@pi-tama/pi-openai-text-verbosity"
+              workspace="@radityasurya/pi-openai-text-verbosity"
               directory="extensions/pi-openai-text-verbosity"
               prefix="pi-openai-text-verbosity-v"
               ;;
             pi-split-session-v*)
-              workspace="@pi-tama/pi-split-session"
+              workspace="@radityasurya/pi-split-session"
               directory="extensions/pi-split-session"
               prefix="pi-split-session-v"
               ;;
             pi-welcome-screen-v*)
-              workspace="@pi-tama/pi-welcome-screen"
+              workspace="@radityasurya/pi-welcome-screen"
               directory="extensions/pi-welcome-screen"
               prefix="pi-welcome-screen-v"
               ;;

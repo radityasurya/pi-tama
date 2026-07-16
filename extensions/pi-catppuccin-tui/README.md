@@ -19,7 +19,7 @@ The optional TUI enhancements are off by default. Installing the package gives y
 From npm after publish:
 
 ```bash
-pi install npm:@pi-tama/pi-catppuccin-tui
+pi install npm:@radityasurya/pi-catppuccin-tui
 ```
 
 For local testing from this repository:

@@ -1,6 +1,6 @@
-# npm Trusted Publishing for `@pi-tama/*`
+# npm Trusted Publishing for `@radityasurya/*`
 
-Releases of every `@pi-tama/*` package are published **tokenlessly** from the
+Releases of every `@radityasurya/*` package are published **tokenlessly** from the
 `radityasurya/pi-tama` GitHub repo by [`.github/workflows/publish.yml`](../.github/workflows/publish.yml).
 It uses npm **Trusted Publishing** — GitHub OIDC identity is the _only_
 credential. There is **no `NODE_AUTH_TOKEN` secret** to create or rotate.
@@ -54,12 +54,12 @@ credential and the step fails with an auth error.
 
 ## Prerequisites (one-time)
 
-1. **Own the npm scope `@pi-tama`.** Create the org at
+1. **Own the npm scope `@radityasurya`.** Create the org at
    <https://www.npmjs.com/org/create> if it doesn't exist, and ensure your npm
    account is an **owner** of the org.
 2. **Enable 2FA** on your npm account (required for provenance/trusted
    publishing). Account → Account Settings → Two-Factor Authentication.
-3. **Org publishing settings.** Under the `@pi-tama` org → Settings → make sure
+3. **Org publishing settings.** Under the `@radityasurya` org → Settings → make sure
    the org's default publishing behavior allows provenance (it is allowed by
    default; package-level access is what we configure below).
 
@@ -70,17 +70,17 @@ credential and the step fails with an auth error.
 
 ## Package table
 
-| Package                               | Version | Directory                               | Release tag                       |
-| ------------------------------------- | ------- | --------------------------------------- | --------------------------------- |
-| `@pi-tama/pi-ask-user`                | 0.1.0   | `extensions/pi-ask-user`                | `pi-ask-user-v<x>`                |
-| `@pi-tama/pi-catppuccin-tui`          | 0.1.3   | `extensions/pi-catppuccin-tui`          | `pi-catppuccin-tui-v<x>`          |
-| `@pi-tama/pi-copy-all`                | 0.1.0   | `extensions/pi-copy-all`                | `pi-copy-all-v<x>`                |
-| `@pi-tama/pi-dashboard-footer`        | 0.1.0   | `extensions/pi-dashboard-footer`        | `pi-dashboard-footer-v<x>`        |
-| `@pi-tama/pi-double-paste`            | 0.1.0   | `extensions/pi-double-paste`            | `pi-double-paste-v<x>`            |
-| `@pi-tama/pi-inline-skill-identifier` | 0.1.1   | `extensions/pi-inline-skill-identifier` | `pi-inline-skill-identifier-v<x>` |
-| `@pi-tama/pi-openai-text-verbosity`   | 0.1.0   | `extensions/pi-openai-text-verbosity`   | `pi-openai-text-verbosity-v<x>`   |
-| `@pi-tama/pi-split-session`           | 0.1.0   | `extensions/pi-split-session`           | `pi-split-session-v<x>`           |
-| `@pi-tama/pi-welcome-screen`          | 0.1.2   | `extensions/pi-welcome-screen`          | `pi-welcome-screen-v<x>`          |
+| Package                                    | Version | Directory                               | Release tag                       |
+| ------------------------------------------ | ------- | --------------------------------------- | --------------------------------- |
+| `@radityasurya/pi-ask-user`                | 0.1.0   | `extensions/pi-ask-user`                | `pi-ask-user-v<x>`                |
+| `@radityasurya/pi-catppuccin-tui`          | 0.1.3   | `extensions/pi-catppuccin-tui`          | `pi-catppuccin-tui-v<x>`          |
+| `@radityasurya/pi-copy-all`                | 0.1.0   | `extensions/pi-copy-all`                | `pi-copy-all-v<x>`                |
+| `@radityasurya/pi-dashboard-footer`        | 0.1.0   | `extensions/pi-dashboard-footer`        | `pi-dashboard-footer-v<x>`        |
+| `@radityasurya/pi-double-paste`            | 0.1.0   | `extensions/pi-double-paste`            | `pi-double-paste-v<x>`            |
+| `@radityasurya/pi-inline-skill-identifier` | 0.1.1   | `extensions/pi-inline-skill-identifier` | `pi-inline-skill-identifier-v<x>` |
+| `@radityasurya/pi-openai-text-verbosity`   | 0.1.0   | `extensions/pi-openai-text-verbosity`   | `pi-openai-text-verbosity-v<x>`   |
+| `@radityasurya/pi-split-session`           | 0.1.0   | `extensions/pi-split-session`           | `pi-split-session-v<x>`           |
+| `@radityasurya/pi-welcome-screen`          | 0.1.2   | `extensions/pi-welcome-screen`          | `pi-welcome-screen-v<x>`          |
 
 > Versions are read from each `package.json` at the time of writing. The tag's
 > `<x>` must **exactly equal** the `version` field — the workflow enforces this.
@@ -95,9 +95,9 @@ Path B is for a **brand-new** package that has never been published.
 
 ### Path A — package already exists on npm
 
-1. Sign in to <https://www.npmjs.com> (as an owner of `@pi-tama`).
+1. Sign in to <https://www.npmjs.com> (as an owner of `@radityasurya`).
 2. Open the package page, e.g.
-   `https://www.npmjs.com/package/@pi-tama/pi-catppuccin-tui`.
+   `https://www.npmjs.com/package/@radityasurya/pi-catppuccin-tui`.
 3. Go to **Settings** → **Publishing access**.
 4. Under **Trusted Publishers**, click **Add trusted publisher** and choose
    **GitHub**. Fill in exactly:
@@ -119,7 +119,7 @@ npm Trusted Publishers can only be attached to a package you **own**. To
 establish ownership for a not-yet-published package:
 
 1. **Bootstrap the first publish manually** (creates the package under
-   `@pi-tama` and makes you its owner):
+   `@radityasurya` and makes you its owner):
 
    ```bash
    cd extensions/<pkg-dir>          # e.g. extensions/pi-catppuccin-tui
@@ -160,7 +160,7 @@ check` (format + typecheck + tests + `package:check`). A failing check blocks
 - **`code E403 ... forbidden`** on publish → Trusted Publisher not added, or
   repo/workflow/environment fields don't match exactly (`radityasurya/pi-tama`,
   `.github/workflows/publish.yml`, environment `npm`).
-- **`Release X does not match @pi-tama/foo@Y`** → the git tag version differs
+- **`Release X does not match @radityasurya/foo@Y`** → the git tag version differs
   from `package.json` `version`. Bump both to the same value, re-tag.
 - **`Unsupported release tag`** → the tag prefix isn't in the workflow's
   `if:`-filter or `case` branches. When adding a new package, you must add it to
@@ -173,9 +173,9 @@ check` (format + typecheck + tests + `package:check`). A failing check blocks
 
 ## Adding a new package later
 
-When you add another `@pi-tama/*` extension:
+When you add another `@radityasurya/*` extension:
 
-1. Put it under `extensions/` with an `@pi-tama/*`-scoped `name` and a `version`.
+1. Put it under `extensions/` with an `@radityasurya/*`-scoped `name` and a `version`.
    Give it a `package:check` script like the others.
 2. Add **two** entries to `.github/workflows/publish.yml`:
    - the tag prefix to the top-level `if:` `startsWith(...)` chain, and

@@ -1,5 +1,5 @@
 {
-  "name": "@pi-tama/pi-welcome-screen",
+  "name": "@radityasurya/pi-welcome-screen",
   "version": "0.1.2",
   "description": "Replace Pi's startup header with centered branding and a compact resource summary.",
   "license": "MIT",

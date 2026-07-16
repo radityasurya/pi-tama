@@ -1,5 +1,5 @@
 {
-  "name": "@pi-tama/pi-dashboard-footer",
+  "name": "@radityasurya/pi-dashboard-footer",
   "version": "0.1.0",
   "description": "A two-line Pi footer with model, context %, cost, tok/s, and git status.",
   "license": "MIT",

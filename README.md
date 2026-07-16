@@ -8,14 +8,14 @@ Agent skills live in [`skills/`](./skills) — `subagents` and `workflows`, pair
 
 ## Packages
 
-| Package                                                                          | Description                                                                          |
-| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| [`@pi-tama/pi-ask-user`](./extensions/pi-ask-user)                               | Multiple-choice tool that lets the model ask you one question at a time.             |
-| [`@pi-tama/pi-double-paste`](./extensions/pi-double-paste)                       | Paste the same large block twice to expand Pi's paste markers into editable text.    |
-| [`@pi-tama/pi-inline-skill-identifier`](./extensions/pi-inline-skill-identifier) | Highlight and route Codex-style `$skill-name` references through Pi's native skills. |
-| [`@pi-tama/pi-openai-text-verbosity`](./extensions/pi-openai-text-verbosity)     | Configure OpenAI Responses text verbosity from Pi's model configuration.             |
-| [`@pi-tama/pi-split-session`](./extensions/pi-split-session)                     | Fork a side session and import a clean side-agent handoff.                           |
-| [`@pi-tama/pi-welcome-screen`](./extensions/pi-welcome-screen)                   | Show a responsive startup header with Pi's loaded resources.                         |
+| Package                                                                               | Description                                                                          |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| [`@radityasurya/pi-ask-user`](./extensions/pi-ask-user)                               | Multiple-choice tool that lets the model ask you one question at a time.             |
+| [`@radityasurya/pi-double-paste`](./extensions/pi-double-paste)                       | Paste the same large block twice to expand Pi's paste markers into editable text.    |
+| [`@radityasurya/pi-inline-skill-identifier`](./extensions/pi-inline-skill-identifier) | Highlight and route Codex-style `$skill-name` references through Pi's native skills. |
+| [`@radityasurya/pi-openai-text-verbosity`](./extensions/pi-openai-text-verbosity)     | Configure OpenAI Responses text verbosity from Pi's model configuration.             |
+| [`@radityasurya/pi-split-session`](./extensions/pi-split-session)                     | Fork a side session and import a clean side-agent handoff.                           |
+| [`@radityasurya/pi-welcome-screen`](./extensions/pi-welcome-screen)                   | Show a responsive startup header with Pi's loaded resources.                         |
 
 Every package is independently versioned and published to npm. Runtime source is readable TypeScript, and packages avoid runtime dependencies where practical. Releases publish **tokenlessly with provenance** via GitHub OIDC — see [**npm Trusted Publishing setup**](./docs/npm-trusted-publishing.md) for the one-time, per-package configuration.
 
@@ -26,12 +26,12 @@ Every package is independently versioned and published to npm. Runtime source is
 Install an extension globally through Pi's package manager:
 
 ```sh
-pi install npm:@pi-tama/pi-ask-user
-pi install npm:@pi-tama/pi-double-paste
-pi install npm:@pi-tama/pi-inline-skill-identifier
-pi install npm:@pi-tama/pi-openai-text-verbosity
-pi install npm:@pi-tama/pi-split-session
-pi install npm:@pi-tama/pi-welcome-screen
+pi install npm:@radityasurya/pi-ask-user
+pi install npm:@radityasurya/pi-double-paste
+pi install npm:@radityasurya/pi-inline-skill-identifier
+pi install npm:@radityasurya/pi-openai-text-verbosity
+pi install npm:@radityasurya/pi-split-session
+pi install npm:@radityasurya/pi-welcome-screen
 ```
 
 Restart Pi or run `/reload`. To pin a specific release, append its version, such as `@0.1.0`.

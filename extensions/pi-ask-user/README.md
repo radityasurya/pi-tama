@@ -1,4 +1,4 @@
-# @pi-tama/pi-ask-user
+# @radityasurya/pi-ask-user
 
 A multiple-choice `ask_user` tool for [Pi](https://pi.dev).
 
@@ -7,7 +7,7 @@ Registers an `ask_user` tool the model can call to ask you one multiple-choice q
 ## Install
 
 ```sh
-pi install npm:@pi-tama/pi-ask-user
+pi install npm:@radityasurya/pi-ask-user
 ```
 
 Then restart Pi or run `/reload`.
