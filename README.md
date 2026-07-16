@@ -2,6 +2,10 @@
 
 Small, composable extensions for the [Pi coding agent](https://pi.dev).
 
+## Skills
+
+Agent skills live in [`skills/`](./skills) — `subagents` and `workflows`, pairing with the `personal/` extensions. External skills used by this setup are installed by reference (not vendored); see [`docs/inspirations.md`](./docs/inspirations.md) for where every skill and extension comes from.
+
 ## Packages
 
 | Package                                                                          | Description                                                                          |
