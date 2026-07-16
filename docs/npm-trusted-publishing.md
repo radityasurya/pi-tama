@@ -54,17 +54,13 @@ credential and the step fails with an auth error.
 
 ## Prerequisites (one-time)
 
-1. **Own the npm scope `@radityasurya`.** Create the org at
-   <https://www.npmjs.com/org/create> if it doesn't exist, and ensure your npm
-   account is an **owner** of the org.
-2. **Enable 2FA** on your npm account (required for provenance/trusted
+1. **Have an npm account.** The `@radityasurya` scope is your **personal** scope —
+   it's created automatically with your account, so **no org setup is needed.**
+2. **Enable 2FA** on that account (required for provenance / trusted
    publishing). Account → Account Settings → Two-Factor Authentication.
-3. **Org publishing settings.** Under the `@radityasurya` org → Settings → make sure
-   the org's default publishing behavior allows provenance (it is allowed by
-   default; package-level access is what we configure below).
 
-> Keep your npm account login handy — you'll need it (with OTP) for the manual
-> first publish of each brand-new package.
+> Keep your npm login handy — you'll need it (with OTP) for the manual first
+> publish of each brand-new package (see Path B below).
 
 ---
 
@@ -95,7 +91,7 @@ Path B is for a **brand-new** package that has never been published.
 
 ### Path A — package already exists on npm
 
-1. Sign in to <https://www.npmjs.com> (as an owner of `@radityasurya`).
+1. Sign in to <https://www.npmjs.com>.
 2. Open the package page, e.g.
    `https://www.npmjs.com/package/@radityasurya/pi-catppuccin-tui`.
 3. Go to **Settings** → **Publishing access**.
@@ -115,11 +111,13 @@ Path B is for a **brand-new** package that has never been published.
 
 ### Path B — brand-new package (never published)
 
-npm Trusted Publishers can only be attached to a package you **own**. To
-establish ownership for a not-yet-published package:
+npm Trusted Publishers can only be attached to a package you **own**. Since
+`@radityasurya` is your personal scope, you own any `@radityasurya/*` package
+the moment it's published — but for a not-yet-published package you must do
+that first publish to create it:
 
 1. **Bootstrap the first publish manually** (creates the package under
-   `@radityasurya` and makes you its owner):
+   `@radityasurya`):
 
    ```bash
    cd extensions/<pkg-dir>          # e.g. extensions/pi-catppuccin-tui
