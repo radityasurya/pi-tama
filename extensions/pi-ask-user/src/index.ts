@@ -129,6 +129,10 @@ function createQuestionComponent(
       | { type: "digit"; value: number }
       | { type: "text"; data: string };
 
+    // Keep the state machine's draft in sync with the editor so that Enter in
+    // edit mode can submit the typed text (otherwise state.draft stays "").
+    state = { ...state, draft: edit.text };
+
     const kb = getKeybindings();
     if (kb.matches(data, "tui.select.up")) key = { type: "up" };
     else if (kb.matches(data, "tui.select.down")) key = { type: "down" };
@@ -140,8 +144,14 @@ function createQuestionComponent(
       else key = { type: "text", data };
     }
 
+    const wasInEditMode = state.editMode;
     const outcome = handleKey(state, key);
     state = outcome.state;
+
+    // Reset the editor when (re)entering edit mode so old text doesn't linger.
+    if (!wasInEditMode && state.editMode) {
+      edit.reset();
+    }
 
     if (outcome.feedEditor && state.editMode) {
       edit.handle(data);
