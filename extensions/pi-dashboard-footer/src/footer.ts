@@ -38,8 +38,8 @@ export class DashboardFooter {
       `${formatContext(state)} · ${formatCost(state.cost)} · ${formatTokensPerSecond(state.tokensPerSecond)}`,
     );
 
-    // Third line: activity badges (agents, ADHD, …) on the left, mode badges
-    // (ponytail) on the right.
+    // Activity badges (agents, ADHD, …) lead line 2; mode badges (ponytail)
+    // get their own right-aligned line.
     const RIGHT_SIDE_STATUSES = new Set(["ponytail"]);
     const entries = [...statuses.entries()].sort(([a], [b]) => a.localeCompare(b));
     const badgeLine = (keys: "left" | "right") =>
@@ -49,13 +49,15 @@ export class DashboardFooter {
         .filter((line) => line.trim().length > 0)
         .join("  ");
 
-    const lines = [
-      columns(directory, model, width),
-      columns(usage, theme.fg("muted", formatGit(state)), width),
-    ];
+    // Line 2: activity badges lead the left side, usage follows, git stays right.
     const leftBadges = badgeLine("left");
     const rightBadges = badgeLine("right");
-    if (leftBadges || rightBadges) lines.push(columns(leftBadges, rightBadges, width));
+    const left2 = [leftBadges, usage].filter(Boolean).join("  ");
+    const lines = [
+      columns(directory, model, width),
+      columns(left2, theme.fg("muted", formatGit(state)), width),
+    ];
+    if (rightBadges) lines.push(columns("", rightBadges, width));
     return lines;
   }
 
