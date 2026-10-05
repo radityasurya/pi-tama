@@ -1,5 +1,4 @@
 import type { Theme } from "@earendil-works/pi-coding-agent";
-import { truncate } from "./format.ts";
 import type { DashboardState } from "./format.ts";
 import {
   columns,
@@ -21,9 +20,9 @@ export interface FooterSnapshot {
 }
 
 /**
- * Footer component for the dashboard. Renders two data lines plus one line per
- * extension status registered via `ctx.ui.setStatus`. Implements pi's
- * structural `Component` interface (`render` + `invalidate`).
+ * Footer component for the dashboard. Renders two data lines; extension
+ * status badges registered via `ctx.ui.setStatus` are joined onto the second
+ * line's right side so the footer stays two rows total.
  */
 export class DashboardFooter {
   constructor(private readonly snapshot: () => FooterSnapshot) {}
@@ -39,21 +38,20 @@ export class DashboardFooter {
       "muted",
       `${formatContext(state)} · ${formatCost(state.cost)} · ${formatTokensPerSecond(state.tokensPerSecond)}`,
     );
-    const git = formatGit(state);
 
-    const lines = [
-      columns(directory, model, width),
-      columns(usage, theme.fg("muted", git), width),
-    ];
-
-    const statusLines = [...statuses.entries()]
+    // All badges on one line, right of the git info. `columns` truncates both
+    // sides if the terminal is too narrow, so no third footer row appears.
+    const badges = [...statuses.entries()]
       .sort(([a], [b]) => a.localeCompare(b))
-      .flatMap(([, text]) => text.split("\n"));
-    for (const statusLine of statusLines) {
-      lines.push(truncate(statusLine, width, theme.fg("dim", "…")));
-    }
+      .flatMap(([, text]) => text.split("\n"))
+      .filter((line) => line.trim().length > 0)
+      .join("  ");
+    const right = [theme.fg("muted", formatGit(state)), badges].filter(Boolean).join("  ");
 
-    return lines;
+    return [
+      columns(directory, model, width),
+      columns(usage, right, width),
+    ];
   }
 
   invalidate(): void {
