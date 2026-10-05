@@ -38,27 +38,18 @@ export class DashboardFooter {
       `${formatContext(state)} · ${formatCost(state.cost)} · ${formatTokensPerSecond(state.tokensPerSecond)}`,
     );
 
-    // Activity badges (agents, ADHD, …) lead line 2; mode badges (ponytail)
-    // get their own right-aligned line.
-    const RIGHT_SIDE_STATUSES = new Set(["ponytail"]);
-    const entries = [...statuses.entries()].sort(([a], [b]) => a.localeCompare(b));
-    const badgeLine = (keys: "left" | "right") =>
-      entries
-        .filter(([key]) => (keys === "right") === RIGHT_SIDE_STATUSES.has(key))
-        .flatMap(([, text]) => text.split("\n"))
-        .filter((line) => line.trim().length > 0)
-        .join("  ");
-
-    // Line 2: activity badges lead the left side, usage follows, git stays right.
-    const leftBadges = badgeLine("left");
-    const rightBadges = badgeLine("right");
-    const left2 = [leftBadges, usage].filter(Boolean).join("  ");
-    const lines = [
+    // Line 2: every badge (agents, ADHD, ponytail, …) leads the left side,
+    // usage follows, git stays right. Two footer lines total.
+    const badges = [...statuses.entries()]
+      .sort(([a], [b]) => a.localeCompare(b))
+      .flatMap(([, text]) => text.split("\n"))
+      .filter((line) => line.trim().length > 0)
+      .join("  ");
+    const left2 = [badges, usage].filter(Boolean).join("  ");
+    return [
       columns(directory, model, width),
       columns(left2, theme.fg("muted", formatGit(state)), width),
     ];
-    if (rightBadges) lines.push(columns("", rightBadges, width));
-    return lines;
   }
 
   invalidate(): void {
