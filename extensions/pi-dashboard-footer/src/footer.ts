@@ -44,7 +44,7 @@ export class DashboardFooter {
       .flatMap(([, text]) => text.split("\n"))
       .filter((line) => line.trim().length > 0)
       .join("  ");
-    const right2 = [usage, theme.fg("muted", formatGit(state))].filter(Boolean).join("      ");
+    const right2 = [usage, theme.fg("muted", formatGit(state))].filter(Boolean).join("  ·  ");
     return [
       columns(directory, model, width),
       columns(badges, right2, width),
