@@ -38,17 +38,16 @@ export class DashboardFooter {
       `${formatContext(state)} · ${formatCost(state.cost)} · ${formatTokensPerSecond(state.tokensPerSecond)}`,
     );
 
-    // Line 2: every badge (agents, ADHD, ponytail, …) leads the left side,
-    // usage follows, git stays right. Two footer lines total.
+    // Line 2: badges left; usage and git right, separated by a fixed gap.
     const badges = [...statuses.entries()]
       .sort(([a], [b]) => a.localeCompare(b))
       .flatMap(([, text]) => text.split("\n"))
       .filter((line) => line.trim().length > 0)
       .join("  ");
-    const left2 = [badges, usage].filter(Boolean).join("  ");
+    const right2 = [usage, theme.fg("muted", formatGit(state))].filter(Boolean).join("      ");
     return [
       columns(directory, model, width),
-      columns(left2, theme.fg("muted", formatGit(state)), width),
+      columns(badges, right2, width),
     ];
   }
 
