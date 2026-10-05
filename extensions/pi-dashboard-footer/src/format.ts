@@ -1,3 +1,4 @@
+import { truncateToWidth, visibleWidth as tuiVisibleWidth } from "@earendil-works/pi-tui";
 /**
  * Pure formatting helpers for the dashboard footer.
  *
@@ -81,13 +82,11 @@ export function stripAnsi(text: string): string {
 }
 
 export function visibleWidth(text: string): number {
-  return stripAnsi(text).length;
+  // pi-tui counts display columns (wide chars, emoji, combining marks);
+  // string .length counts UTF-16 units and misaligns emoji badges.
+  return tuiVisibleWidth(text);
 }
 
 export function truncate(text: string, width: number, ellipsis = "…"): string {
-  const stripped = stripAnsi(text);
-  if (stripped.length <= width) return text;
-  if (width <= 0) return "";
-  if (width <= ellipsis.length) return ellipsis.slice(0, width);
-  return `${stripped.slice(0, width - ellipsis.length)}${ellipsis}`;
+  return truncateToWidth(text, width, ellipsis);
 }

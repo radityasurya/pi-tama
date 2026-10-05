@@ -20,9 +20,8 @@ export interface FooterSnapshot {
 }
 
 /**
- * Footer component for the dashboard. Renders two data lines; extension
- * status badges registered via `ctx.ui.setStatus` are joined onto the second
- * line's right side so the footer stays two rows total.
+ * Footer component for the dashboard. Renders two data lines plus a third
+ * status line: all extension badges joined and right-aligned.
  */
 export class DashboardFooter {
   constructor(private readonly snapshot: () => FooterSnapshot) {}
@@ -39,19 +38,19 @@ export class DashboardFooter {
       `${formatContext(state)} · ${formatCost(state.cost)} · ${formatTokensPerSecond(state.tokensPerSecond)}`,
     );
 
-    // All badges on one line, right of the git info. `columns` truncates both
-    // sides if the terminal is too narrow, so no third footer row appears.
+    // Third line: every badge on one line, flush right.
     const badges = [...statuses.entries()]
       .sort(([a], [b]) => a.localeCompare(b))
       .flatMap(([, text]) => text.split("\n"))
       .filter((line) => line.trim().length > 0)
       .join("  ");
-    const right = [theme.fg("muted", formatGit(state)), badges].filter(Boolean).join("  ");
 
-    return [
+    const lines = [
       columns(directory, model, width),
-      columns(usage, right, width),
+      columns(usage, theme.fg("muted", formatGit(state)), width),
     ];
+    if (badges) lines.push(columns("", badges, width));
+    return lines;
   }
 
   invalidate(): void {
