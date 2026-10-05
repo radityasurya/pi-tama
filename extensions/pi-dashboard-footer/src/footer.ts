@@ -38,18 +38,24 @@ export class DashboardFooter {
       `${formatContext(state)} · ${formatCost(state.cost)} · ${formatTokensPerSecond(state.tokensPerSecond)}`,
     );
 
-    // Third line: every badge on one line, flush right.
-    const badges = [...statuses.entries()]
-      .sort(([a], [b]) => a.localeCompare(b))
-      .flatMap(([, text]) => text.split("\n"))
-      .filter((line) => line.trim().length > 0)
-      .join("  ");
+    // Third line: activity badges (agents, ADHD, …) on the left, mode badges
+    // (ponytail) on the right.
+    const RIGHT_SIDE_STATUSES = new Set(["ponytail"]);
+    const entries = [...statuses.entries()].sort(([a], [b]) => a.localeCompare(b));
+    const badgeLine = (keys: "left" | "right") =>
+      entries
+        .filter(([key]) => (keys === "right") === RIGHT_SIDE_STATUSES.has(key))
+        .flatMap(([, text]) => text.split("\n"))
+        .filter((line) => line.trim().length > 0)
+        .join("  ");
 
     const lines = [
       columns(directory, model, width),
       columns(usage, theme.fg("muted", formatGit(state)), width),
     ];
-    if (badges) lines.push(columns("", badges, width));
+    const leftBadges = badgeLine("left");
+    const rightBadges = badgeLine("right");
+    if (leftBadges || rightBadges) lines.push(columns(leftBadges, rightBadges, width));
     return lines;
   }
 
