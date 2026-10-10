@@ -9,6 +9,7 @@ import {
   formatTokensPerSecond,
   stripAnsi,
   truncate,
+  visibleWidth,
   type DashboardState,
 } from "../src/format.ts";
 
@@ -94,12 +95,16 @@ describe("columns", () => {
   });
 
   test("returns left as-is when right is empty", () => {
-    expect(columns("hello", "", 3)).toBe("he…");
+    const line = columns("hello", "", 3);
+    // pi-tui 0.80.6 wraps truncated output in SGR resets; assert on the
+    // visible text and width, not the library's escape codes.
+    expect(stripAnsi(line)).toBe("he…");
+    expect(visibleWidth(line)).toBeLessThanOrEqual(3);
   });
 
   test("truncates both sides when they do not fit", () => {
     const line = columns("a very long left side", "right", 10);
-    expect(line.length).toBeLessThanOrEqual(10);
+    expect(visibleWidth(line)).toBe(10);
     expect(stripAnsi(line)).toHaveLength(10);
   });
 });
@@ -110,11 +115,13 @@ describe("truncate", () => {
   });
 
   test("truncates with an ellipsis", () => {
-    expect(truncate("hello world", 8)).toBe("hello w…");
+    const line = truncate("hello world", 8);
+    expect(stripAnsi(line)).toBe("hello w…");
+    expect(visibleWidth(line)).toBe(8);
   });
 
   test("handles width <= ellipsis length", () => {
-    expect(truncate("hello", 1)).toBe("…");
+    expect(stripAnsi(truncate("hello", 1))).toBe("…");
     expect(truncate("hello", 0)).toBe("");
   });
 });
