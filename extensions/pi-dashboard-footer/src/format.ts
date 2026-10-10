@@ -1,4 +1,7 @@
-import { truncateToWidth, visibleWidth as tuiVisibleWidth } from "@earendil-works/pi-tui";
+import {
+  truncateToWidth,
+  visibleWidth as tuiVisibleWidth,
+} from "@earendil-works/pi-tui";
 /**
  * Pure formatting helpers for the dashboard footer.
  *
