@@ -265,8 +265,11 @@ export default function piAskUser(pi: ExtensionAPI): void {
         return reply(params, { kind: "cancelled" });
       }
 
-      const result = await ctx.ui.custom<AskUserResult>(
-        (_tui, theme, _kb, done) =>
+      // herdr reads an open question as blocked only when told: its pi extension
+      // (herdr-agent-state) counts these events, so Needs-you and push see the wait.
+      pi.events.emit("herdr:blocked", { active: true, label: params.question });
+      const result = await ctx.ui
+        .custom<AskUserResult>((_tui, theme, _kb, done) =>
           createQuestionComponent(
             params.question,
             params.options,
@@ -274,7 +277,8 @@ export default function piAskUser(pi: ExtensionAPI): void {
             signal,
             done,
           ),
-      );
+        )
+        .finally(() => pi.events.emit("herdr:blocked", { active: false }));
 
       if (!result) {
         return reply(params, { kind: "dismissed" });
