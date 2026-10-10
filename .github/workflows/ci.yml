@@ -12,7 +12,7 @@ jobs:
   check:
     strategy:
       matrix:
-        node: [20, 22, 24]
+        node: [22, 24] # @earendil-works/pi-coding-agent needs Node >= 22.19
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
